@@ -16067,15 +16067,15 @@ const putnici = [
 ];
 
 
-let preziveleBebe = 0; // ispod 2 god
-let prezivelaDeca = 0; // do 12 ili 14 ili 16 ....
-let preziveliOdrasli = 0;  // sve iznad
-let preziveliStarci = 0; // preko 65 ili 70
+let preziveleBebe = 0; 
+let prezivelaDeca = 0; 
+let preziveliOdrasli = 0;  
+let preziveliStarci = 0; 
 let umrleBebe = 0;
 let umrlaDeca = 0;
 let umrliOdrasli = 0;
 let umrliStarci = 0;
-let nepoznato = 0; // nema podatka o uzrastu
+let nepoznato = 0; 
 
 
 for (let i = 0; i < putnici.length; i++) {
@@ -16083,10 +16083,14 @@ for (let i = 0; i < putnici.length; i++) {
     const age = user.fields.age;
     const survived = user.fields.survived;
 
-    if (age < 2 && survived == "Yes") { preziveleBebe++ } else { umrleBebe++ };
-    if (age >= 2 && age < 16 && survived == "Yes") { prezivelaDeca++ } else { umrlaDeca++ };
-    if (age >= 16 && age < 65 && survived == "Yes") { preziveliOdrasli++ } else { umrliOdrasli++ };
-    if (age >= 65 && survived == "Yes") { preziveliStarci++ } else { umrliStarci++ };
+    if (age < 2 && survived == "Yes") preziveleBebe++ ;
+    if (age < 2 && survived == "No") umrleBebe++;
+    if (age >= 2 && age < 16 && survived == "Yes") prezivelaDeca++ ;
+    if (age >= 2 && age < 16 && survived == "No") umrlaDeca++; 
+    if (age >= 16 && age < 65 && survived == "Yes") preziveliOdrasli++ ;
+    if (age >= 16 && age < 65 && survived == "No") umrliOdrasli++
+    if (age >= 65 && survived == "Yes") preziveliStarci++ ;
+    if (age >= 65 && survived == "No") umrliStarci++;
     if (age == undefined) nepoznato++;
 }
 
@@ -16098,12 +16102,12 @@ function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['Uzrast i smrtnost', 'Broj putnika'],
         ['Prezivele bebe', preziveleBebe],
-        ['Prezivela deca', prezivelaDeca],
-        ['Preziveli odrasli', preziveliOdrasli],
-        ['Preziveli starci', preziveliStarci],
         ['Umrle bebe', umrleBebe],
+        ['Prezivela deca', prezivelaDeca],
         ['Umrla deca', umrlaDeca],
+        ['Preziveli odrasli', preziveliOdrasli],
         ['Umrli odrasli', umrliOdrasli],
+        ['Preziveli starci', preziveliStarci],
         ['Umrli starci', umrliStarci],
         ['nepoznato', nepoznato]
     ]);
